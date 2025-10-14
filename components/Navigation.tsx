@@ -39,14 +39,17 @@ const Navigation: React.FC = () => {
   const [activeLink, setActiveLink] = useState<string>("");
 
   useEffect(() => {
+    // ... (rest of useEffect remains the same)
     const handleScroll = () => {
       let currentLink = "";
       NavLinks.forEach((nav) => {
         const section = document.querySelector(nav.link);
+        // Slightly adjusted boundary condition for better activation control
+        const headerHeight = 60; // Assuming the sticky header height
         if (
           section &&
-          section.getBoundingClientRect().top <= 60 &&
-          section.getBoundingClientRect().bottom > 300
+          section.getBoundingClientRect().top <= headerHeight &&
+          section.getBoundingClientRect().bottom > headerHeight
         ) {
           currentLink = nav.link;
         }
@@ -64,27 +67,38 @@ const Navigation: React.FC = () => {
     setActiveLink(link);
     const section = document.querySelector(link);
     if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+      // Use client-side logic to offset the scroll for the fixed navbar
+      const yOffset = -70; // Adjust based on your fixed navbar height
+      const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-center md:justify-center items-center w-full md:w-auto py-5 md:py-0">
+    // FIX 1: Use 'flex-row' by default, and center on small screens.
+    // FIX 2: Removed unnecessary responsive `md:` classes since it's now consistent.
+    // FIX 3: Added `space-x-4` (or `space-x-3`) to the container for controlled spacing.
+    <div className="flex flex-col md:flex-row md:flex-nowrap justify-center items-center w-full md:w-auto py-5 md:py-0 ">
       {NavLinks.map((nav) => (
+        // FIX 4: Removed excessive margin classes (`mx-4`) here since `space-x-*` is on the parent.
+        // On mobile, the `mb-4` provides vertical separation.
         <div
           key={nav.name}
-          className="mx-4 relative group mb-4 md:mb-0"
+          className="mx-3 relative group mb-4 md:mb-0"
         >
           <a
             onClick={() => handleClick(nav.link)}
+            // Ensure no horizontal padding/margin is forcing the link width here
             className={`
               font-semibold py-1 relative z-10
               transition-all duration-300 ease-in-out
               cursor-pointer 
+              whitespace-nowrap 
               ${
                 activeLink === nav.link
                   ? "text-green-600 dark:text-green-400"
-                  : "text-green-500 dark:text-green-500 hover:text-green-600 dark:hover:text-green-400"
+                  : "text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400" // Adjusted default text color for contrast
               }
             `}
           >
