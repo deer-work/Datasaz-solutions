@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
         </div>
       </Link>
         </div>
-        <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2">
+        <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 flex-shrink-0 whitespace-nowrap">
           <Navigation />
         </div>
 
@@ -106,7 +106,9 @@ const Navbar: React.FC = () => {
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <Navigation />
+        <div onClick={() => setMobileMenuOpen(false)}>
+            <Navigation />
+          </div>
           <div className="mt-4 flex justify-end">
             <ThemeToggle />
           </div>

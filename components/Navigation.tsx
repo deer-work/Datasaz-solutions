@@ -77,13 +77,13 @@ const Navigation: React.FC = () => {
     // FIX 1: Use 'flex-row' by default, and center on small screens.
     // FIX 2: Removed unnecessary responsive `md:` classes since it's now consistent.
     // FIX 3: Added `space-x-4` (or `space-x-3`) to the container for controlled spacing.
-    <div className="flex flex-col md:flex-row md:flex-nowrap justify-center items-center w-full md:w-auto py-5 md:py-0 ">
+    <div className="flex flex-col md:flex-row md:flex-nowrap justify-center items-center w-full md:w-auto py-5 md:py-0 lg:space-x-3">
       {NavLinks.map((nav) => (
         // FIX 4: Removed excessive margin classes (`mx-4`) here since `space-x-*` is on the parent.
         // On mobile, the `mb-4` provides vertical separation.
         <div
           key={nav.name}
-          className="mx-3 relative group mb-4 md:mb-0"
+          className="relative group mb-4 md:mb-0"
         >
           <a
             onClick={() => handleClick(nav.link)}
