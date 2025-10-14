@@ -67,10 +67,7 @@ export default function ProfessionalChatbot() {
       setInputText("");
       setIsLoading(true);
       try {
-        const chatApiUrl =
-          process.env.NEXT_PUBLIC_CHAT_API_URL ||
-          "http://localhost:8000/api/chat";
-        const response = await fetch(chatApiUrl, {
+        const response = await fetch("/api/chat", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
