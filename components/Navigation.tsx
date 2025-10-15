@@ -43,11 +43,10 @@ const Navigation: React.FC = () => {
       let currentLink = "";
       NavLinks.forEach((nav) => {
         const section = document.querySelector(nav.link);
-        const headerHeight = 60; // Assuming the sticky header height
         if (
           section &&
-          section.getBoundingClientRect().top <= headerHeight &&
-          section.getBoundingClientRect().bottom > headerHeight
+          section.getBoundingClientRect().top <= 60 &&
+          section.getBoundingClientRect().bottom > 300
         ) {
           currentLink = nav.link;
         }
@@ -77,7 +76,7 @@ const Navigation: React.FC = () => {
     // FIX 1: Use 'flex-row' by default, and center on small screens.
     // FIX 2: Removed unnecessary responsive `md:` classes since it's now consistent.
     // FIX 3: Added `space-x-4` (or `space-x-3`) to the container for controlled spacing.
-    <div className="flex flex-col md:flex-row md:flex-nowrap justify-center items-center w-full md:w-auto py-5 md:py-0 lg:space-x-3">
+    <div className="flex flex-col md:flex-row md:flex-nowrap justify-center items-center w-full md:w-auto py-5 md:py-0 lg:space-x-6">
       {NavLinks.map((nav) => (
         // FIX 4: Removed excessive margin classes (`mx-4`) here since `space-x-*` is on the parent.
         // On mobile, the `mb-4` provides vertical separation.
@@ -96,7 +95,7 @@ const Navigation: React.FC = () => {
               ${
                 activeLink === nav.link
                   ? "text-green-600 dark:text-green-400"
-                  : "text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400" // Adjusted default text color for contrast
+                  : "text-green-500 dark:text-green-300 hover:text-green-600 dark:hover:text-green-400" // Adjusted default text color for contrast
               }
             `}
           >
